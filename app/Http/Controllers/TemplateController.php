@@ -11,4 +11,9 @@ class TemplateController extends Controller
         $arr1 = ["apple", "ball", "cat"];
         return view('template.firstTemplate', ["xyz_address" => $address, "arr1" => $arr1]);
     }
+
+    function inner()
+    {
+        return view('common.inner');
+    }
 }

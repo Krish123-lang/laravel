@@ -36,3 +36,10 @@ Route::get('admin-login/{abc}', [UserController::class, 'adminLogin']);
 
 // Templates
 Route::get('first-template/{xyz_address}', [TemplateController::class, 'fristTemplate']);
+
+
+// Sub-view
+Route::get('inner', [TemplateController::class, 'inner']);
+Route::get('sub-about', function () {
+    return view('common.about');
+});

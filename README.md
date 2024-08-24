@@ -186,3 +186,53 @@ public function __construct($msg, $class)
 ![alt text](readmeImages/image2.png)
 ![alt text](readmeImages/image3.png)
 ---
+
+# Input fields/form
+> php artisan make:view user-form
+> php artisan make:controller FormController
+
+* ## user-form.blade.php
+```
+<form action="addUser" method="post">
+    @csrf
+    <div class="input-wrapper">
+        <label for="">Username</label>
+        <input type="text" placeholder="username" name="username">
+    </div>
+    <div class="input-wrapper">
+        <label for="">email</label>
+        <input type="email" placeholder="email" name="email">
+    </div>
+    <div class="input-wrapper">
+        <label for="">city</label>
+        <input type="text" placeholder="city" name="city">
+    </div>
+    <div class="input-wrapper">
+        <button type="submit">Submit</button>
+    </div>
+</form>
+```
+* ## FormController.php
+```
+function addUserForm(Request $request)
+{
+    // return $request;
+    echo $request->username . "<br/>";
+    echo $request->email . "<br/>";
+    echo $request->city . "<br/>";
+}
+```
+* ## web.php
+```
+// Form/User-Input
+
+// 'fileName', 'routeName'
+Route::view('user-form', 'user-form');
+
+// routeName, [ControllerName::class, 'functionNameInsideController']
+Route::post('addUser', [FormController::class, 'addUserForm']);
+```
+
+![alt text](readmeImages/image4.png)
+![alt text](readmeImages/image5.png)
+---

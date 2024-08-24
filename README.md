@@ -129,3 +129,60 @@ function adminLogin($name){
 ```
 ![alt text](readmeImages/image1.png)
 ---
+
+# Componenets
+> php artisan make:component messageBanner
+
+* ## message-banner.blade.php
+```
+<div>
+    <span>User loggedin Successfully !</span>
+</div>
+```
+
+* ## welcome.blade.php
+```
+{{-- Calling the message-banner component --}}
+<x-message-banner />
+```
+
+* ## views/components/message-banner.blade.php
+```
+<style>
+    .warning {
+        background-color: orangered;
+        color: #fff;
+        padding: 5px;
+        border-radius: 10px;
+        margin: 10px;
+        display: inline-block;
+    }
+</style>
+
+<div>
+    <span class="{{ $class }}">{{ $msg }}!</span>
+</div>
+```
+
+* ## app/Http/View/Components/messageBanner.php
+```
+public $msg;
+public $class;
+
+public function __construct($msg, $class)
+{
+    $this->msg = $msg;
+    $this->class = $class;
+}
+```
+* ## welcome.blade.php
+```
+<x-message-banner msg="User loggedin successfully !" class="success" />
+<x-message-banner msg="User Signed up successfully !" class="success" />
+<x-message-banner msg="this is welcome page message!" class="success" />
+<x-message-banner msg="this is error message" class="error" />
+<x-message-banner msg="this is warning message" class="warning" />
+```
+![alt text](readmeImages/image2.png)
+![alt text](readmeImages/image3.png)
+---

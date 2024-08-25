@@ -236,3 +236,58 @@ Route::post('addUser', [FormController::class, 'addUserForm']);
 ![alt text](readmeImages/image4.png)
 ![alt text](readmeImages/image5.png)
 ---
+
+# Form validation
+* ## usr-form.blade.php
+```
+<div class="input-wrapper">
+    <label for="">Username</label>
+    <input type="text" placeholder="username" name="username" value="{{ old('username') }}"
+        class="{{ $errors->first('username') ? 'input-error' : '' }}">
+    <span style="color: red">
+        @error('username')
+            {{ $message }}
+        @enderror
+    </span>
+</div>
+```
+
+* ## FormController.php
+```
+ function addUserForm(Request $request)
+    {
+        // Form validation
+        $request->validate(
+            [
+                'username' => 'required | min:3 | max:15',
+                'email' => 'required | email',
+                'city' => 'required | max:20',
+                'skill' => 'required',
+                'gender' => 'required',
+                'town' => 'required',
+                'range' => 'required'
+            ],
+            [
+                'username.required' => 'username is needed. why is it empty ?',
+                'username.min' => 'username should be greater than 3 characters long',
+                'username.max' => 'username should not be greater than 15 characters long',
+
+                'email.required' => 'email chaiyeko xa. kina empty chodeko ?',
+                'email.email' => 'what kind of email is this ?',
+            ]
+        );
+
+
+        // return $request;
+        echo $request->username . "<br/>";
+        echo $request->email . "<br/>";
+        echo $request->city . "<br/>";
+        // echo $request->skill . "<br/>";
+        echo implode(', ', $request->skill) . "<br/>";
+        echo $request->gender . "<br/>";
+        echo $request->town . "<br/>";
+        echo $request->range . "<br/>";
+    }
+```
+![alt text](readmeImages/image6.png)
+---

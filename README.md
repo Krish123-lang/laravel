@@ -90,3 +90,12 @@ public function store(Request $request)
 }
 ```
 ---
+10. >post-create.blade.php
+```
+// Retail old data even after validation error
+<input type="text" name="title" placeholder="title" value="{{ old('title') }}">
+<textarea name="body" id="" cols="30" rows="10" placeholder="Description">{{ old('body') }}</textarea>
+
+// for security reasons, laravel don't allows us to retain file 
+```
+---

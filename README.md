@@ -44,3 +44,49 @@ Route::resource('post', PostController::class);
 ```
 ---
 
+7. > post-create.blade.php
+```
+<form action="{{ route('post.store') }}" method="post" enctype="multipart/form-data">
+    @csrf
+    <label for="">Title</label>
+    <input type="text" name="title" placeholder="title">
+    @error('title')
+        <span style="color: red;">{{ $message }}</span>
+    @enderror
+    <br><br>
+
+    <label for="">Description</label>
+    <textarea name="body" id="" cols="30" rows="10" placeholder="Description"></textarea>
+    @error('body')
+        <span style="color: red;">{{ $message }}</span>
+    @enderror
+    <br><br>
+
+    <label for="">Image</label>
+    <input type="file" name="image">
+    @error('image')
+        <span style="color: red;">{{ $message }}</span>
+    @enderror
+
+    {{-- error will not be shown for image if it is defined nullable in the migration --}}
+    <br><br>
+
+    <input type="submit" value="Create">
+</form>
+```
+8. > migration/create_posts_table.php
+`$table->string('image');`
+
+9. > PostController.php
+```
+public function store(Request $request)
+{
+    $request->validate([
+        'title' => 'required|max:200|string',
+        'body' => 'required|max:2000',
+        // 'image' => 'nullable|mimes:png,jpg,jpeg,webp'
+        'image' => 'required|mimes:png,jpg,jpeg,webp|max:2048'
+    ]);
+}
+```
+---

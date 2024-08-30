@@ -28,12 +28,21 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $data = $request->validate([
             'title' => 'required|max:200|string',
             'body' => 'required|max:2000',
             // 'image' => 'nullable|mimes:png,jpg,jpeg,webp'
             'image' => 'required|mimes:png,jpg,jpeg,webp|max:2048'
         ]);
+
+        if ($request->has('image')) {
+            $imageName = time() . '.' . $request->image->getClientOriginalExtension();
+            $request->image->move(public_path('uploads/images/'), $imageName);
+            $data['image'] = $imageName;
+        }
+
+        Post::create($data);
+        return back()->with('success', 'Post has been created !'); // (success: key, message)
     }
 
     /**

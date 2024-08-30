@@ -99,3 +99,28 @@ public function store(Request $request)
 // for security reasons, laravel don't allows us to retain file 
 ```
 ---
+### Storing data to the database and showing the message
+11. > PostController.php
+```
+$data = $request->validate([
+    'title' => 'required|max:200|string',
+    'body' => 'required|max:2000',
+    'image' => 'required|mimes:png,jpg,jpeg,webp|max:2048'
+]);
+
+if ($request->has('image')) {
+    $imageName = time() . '.' . $request->image->getClientOriginalExtension();
+    $request->image->move(public_path('uploads/images/'), $imageName);
+    $data['image'] = $imageName;
+}
+
+Post::create($data);
+return back()->with('success', 'Post has been created !'); // (success: key, message)
+```
+12. > post-create.blade.php
+```
+@if (session()->has('success'))
+    {{ session()->get('success') }}
+@endif
+```
+---

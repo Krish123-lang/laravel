@@ -1,3 +1,7 @@
+@if (session()->has('success'))
+    {{ session()->get('success') }}
+@endif
+
 <form action="{{ route('post.store') }}" method="post" enctype="multipart/form-data">
     @csrf
     <label for="">Title</label>

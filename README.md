@@ -124,3 +124,23 @@ return back()->with('success', 'Post has been created !'); // (success: key, mes
 @endif
 ```
 ---
+13. > PostController.php
+```
+public function create()
+{
+    $posts = Post::all();
+    return view('post-create', compact('posts'));
+}
+```
+14. > post-create.blade.php
+```
+@foreach ($posts as $post)
+    <tr>
+        <th scope="row">{{ $post->id }}</th>
+        <td>{{ $post->title }}</td>
+        <td>{{ $post->body }}</td>
+        <td><img src="{{ asset('uploads/images/' . $post->image) }}" width="70px" alt=""></td>
+    </tr>
+@endforeach
+```
+---

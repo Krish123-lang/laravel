@@ -20,7 +20,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('post-create');
+        $posts = Post::all();
+        return view('post-create', compact('posts'));
     }
 
     /**

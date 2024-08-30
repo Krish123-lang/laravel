@@ -59,7 +59,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('post-edit', compact('post')); // coming from the method argument
     }
 
     /**

@@ -50,7 +50,7 @@
                 {{-- <td>{{ $post->image }}</td> --}}
 
                 <td><img src="{{ asset('uploads/images/' . $post->image) }}" width="70px" alt=""></td>
-                <td><a href="#">Edit</a>
+                <td><a href="{{ route('post.edit', $post->id) }}">Edit</a>
                     <a href="#">Delete</a>
                 </td>
             </tr>

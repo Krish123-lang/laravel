@@ -14,10 +14,10 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         // $middleware->append(AgeCheck::class);
-        $middleware->appendToGroup('check1', [
-            AgeCheck::class,
-            CountryCheck::class,
-        ]);
+        // $middleware->appendToGroup('check1', [
+        //     AgeCheck::class,
+        //     CountryCheck::class,
+        // ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

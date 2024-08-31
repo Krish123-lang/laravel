@@ -4,6 +4,8 @@ use App\Http\Controllers\FormController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\AgeCheck;
+use App\Http\Middleware\CountryCheck;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -92,3 +94,6 @@ Route::middleware('check1')->group(function () {
     Route::view("contact", 'contact');
     Route::view("services", 'services');
 });
+
+Route::view("test1", "test1")->middleware([AgeCheck::class, CountryCheck::class]);
+Route::view('post',  '/post')->middleware(CountryCheck::class);

@@ -17,7 +17,7 @@ class CountryCheck
     {
         // echo "Country check";
         if ($request->country != "nepal") {
-            die("You cannot access this site !");
+            die("You are not of nepal !");
         }
         return $next($request);
     }

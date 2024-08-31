@@ -17,7 +17,7 @@ class AgeCheck
     {
         // print_r($request->age);
         if ($request->age < 18) {
-            die("You cannot enter this site !");
+            die("You Are under aged !");
         }
         // echo "Age check";
         return $next($request);

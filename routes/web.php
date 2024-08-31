@@ -82,3 +82,13 @@ Route::resources([
 
 
 // Middleware
+
+// Route::view("contact", 'contact')->middleware('check1');
+// Route::view("services", 'services');
+
+
+// Group Middleware // applied to both links
+Route::middleware('check1')->group(function () {
+    Route::view("contact", 'contact');
+    Route::view("services", 'services');
+});

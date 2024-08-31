@@ -10,3 +10,8 @@
 <a href="home">Home page</a>
 
 <h3>the timestap is {{ time() }} </h3>
+
+{{ url()->current() }}
+
+{{ URL::current() }}
+

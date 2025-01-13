@@ -1,7 +1,7 @@
 # CRUD APP LARAVEL
 1. > `php artisan make:model Post -m`
 ---
-2. > `models/Product.php`
+2. > `models/Post.php`
     ```
     protected $fillable = [
         'title',

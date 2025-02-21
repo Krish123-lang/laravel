@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Step;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class StepsController extends Controller
 {
@@ -35,7 +36,13 @@ class StepsController extends Controller
             'name' => 'required',
             'email' => 'required|email',
             'phone' => ['required', 'phone:AUTO'],
+            'image' => 'required|image|mimes:png,jpg,jpeg|max:2048'
         ]);
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('images', 'public');
+            $validated_data['image'] = str_replace('public', '', $imagePath);
+        }
 
         Step::create($validated_data);
         return to_route('index')->with('success', 'Steps created successfully!');
@@ -57,8 +64,17 @@ class StepsController extends Controller
             'name' => 'nullable',
             'email' => 'nullable|email',
             'phone' => ['nullable', 'phone:AUTO'],
+            'image' => 'nullable|image|mimes:png,jpg,jpeg|max:2048'
         ]);
 
+        if ($request->hasFile('image')) {
+            if ($step->image) {
+                Storage::delete('public' . $step->image);
+            }
+            $imagePath = $request->file('image')->store('images', 'public');
+            $validated_data['image'] = $imagePath;
+        }
+        
         $step->update($validated_data);
         return to_route('index')->with('success', 'Steps updated successfully!');
     }

@@ -23,6 +23,17 @@
             {{ $message }}
         @enderror
 
+
+        <label for="">Image</label>
+        <input type="file" name="image" id="image">
+        @if ($step->image)
+            <img src="{{ asset('storage/' . $step->image) }}" alt="{{ $step->name }}" width="160">
+        @endif
+        
+        @error('image')
+            {{ $message }}
+        @enderror
+
         <input type="submit" value="Update">
     </form>
 @endsection

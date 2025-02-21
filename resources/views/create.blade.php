@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('content')
-    <form action="{{ route('store') }}" method="post">
+    <form action="{{ route('store') }}" method="post" enctype="multipart/form-data">
         @csrf
         <label for="">Name</label>
         <input type="text" name="name" id="name" value="{{ old('name') }}">
@@ -18,6 +18,12 @@
         <label for="phone">Phone Number</label>
         <input type="tel" id="phone" name="phone" value="{{ old('phone') }}">
         @error('phone')
+            {{ $message }}
+        @enderror
+
+        <label for="">Image</label>
+        <input type="file" name="image" id="image">
+        @error('image')
             {{ $message }}
         @enderror
 

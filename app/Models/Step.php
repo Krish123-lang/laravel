@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Step extends Model
 {
-    protected $fillable = ['name', 'email', 'phone'];
+    protected $fillable = ['name', 'email', 'phone', 'image'];
     protected $primaryKey = 'id';
     protected $keyType = 'string';
     public $incrementing = false;

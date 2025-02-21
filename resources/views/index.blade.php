@@ -1,18 +1,4 @@
 @extends('app')
-@push('style')
-    <style>
-        .pagination .page-item .page-link {
-            font-size: 14px;
-            padding: 5px 10px;
-        }
-
-        .pagination .page-item .page-link::before,
-        .pagination .page-item .page-link::after {
-            font-size: 14px;
-        }
-    </style>
-@endpush
-
 @section('content')
     <h1>Steps</h1>
 
@@ -27,11 +13,12 @@
         <button type="submit">Search</button>
     </form>
 
-    <table id="myTable" class="display">
+    <table border="1px solid black">
         <tr>
             <th>Name</th>
             <th>Email</th>
             <th>Phone</th>
+            <th>Image</th>
             <th>Actions</th>
         </tr>
 
@@ -41,6 +28,11 @@
                     <td><a href="{{ route('show', $step->id) }}">{{ $step->name }}</a></td>
                     <td>{{ $step->email }}</td>
                     <td>{{ $step->phone }}</td>
+                    <td>
+                        @if ($step->image)
+                            <img src="{{ asset('storage/' . $step->image) }}" alt="{{ $step->name }}" width="160">
+                        @endif
+                    </td>
                     <td>
                         <a href="{{ route('edit', $step->id) }}">Edit</a>
                         <form action="{{ route('delete', $step->id) }}" method="POST"

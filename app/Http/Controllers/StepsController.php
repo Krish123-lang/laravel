@@ -7,10 +7,21 @@ use Illuminate\Http\Request;
 
 class StepsController extends Controller
 {
-    public function steps()
+    public function steps(Request $request)
     {
-        $steps = Step::all();
-        return view('index', compact('steps'));
+        $searchTerm = $request->input('search');
+        $query = Step::query();
+
+        if ($searchTerm) {
+            $query->where(function ($q) use ($searchTerm) {
+                $q->where('name', 'like', "%$searchTerm%")
+                    ->orWhere('email', 'like', "%$searchTerm%")
+                    ->orWhere('phone', 'like', "%$searchTerm%");
+            });
+        }
+        $steps = $query->paginate(2);
+        // $steps = Step::all();
+        return view('index', compact('steps', 'searchTerm'));
     }
 
     public function create()

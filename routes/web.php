@@ -10,3 +10,4 @@ Route::get('show/{step}', [StepsController::class, 'show'])->name('show');
 Route::get('edit/{step}', [StepsController::class, 'edit'])->name('edit');
 Route::put('update/{step}', [StepsController::class, 'update'])->name('update');
 Route::delete('delete/{step}', [StepsController::class, 'delete'])->name('delete');
+Route::get('search', [StepsController::class, 'steps'])->name('search');

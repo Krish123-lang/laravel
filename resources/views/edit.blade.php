@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('content')
-    <form action="{{ route('update', $step->id) }}" method="post">
+    <form action="{{ route('update', $step->id) }}" method="post" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -25,11 +25,11 @@
 
 
         <label for="">Image</label>
-        <input type="file" name="image" id="image">
+        <input type="file" name="image" id="image" onchange="document.querySelector('#editimage').src=window.URL.createObjectURL(this.files[0])">
         @if ($step->image)
-            <img src="{{ asset('storage/' . $step->image) }}" alt="{{ $step->name }}" width="160">
+            <img src="{{ asset('storage/' . $step->image) }}" alt="{{ $step->name }}" width="160" id="editimage">
         @endif
-        
+
         @error('image')
             {{ $message }}
         @enderror

@@ -63,25 +63,31 @@ class StepsController extends Controller
         $validated_data = $request->validate([
             'name' => 'nullable',
             'email' => 'nullable|email',
-            'phone' => ['nullable', 'phone:AUTO'],
+            'phone' => 'nullable|phone:AUTO',
             'image' => 'nullable|image|mimes:png,jpg,jpeg|max:2048'
         ]);
 
         if ($request->hasFile('image')) {
-            if ($step->image) {
-                Storage::delete('public' . $step->image);
+            $image_path = public_path('storage/') . $step->image;
+            if (file_exists($image_path)) {
+                @unlink($image_path);
             }
-            $imagePath = $request->file('image')->store('images', 'public');
-            $validated_data['image'] = $imagePath;
+            $path = $request->image->store('images', 'public');
+            $validated_data['image'] = $path;
         }
-        
+
         $step->update($validated_data);
         return to_route('index')->with('success', 'Steps updated successfully!');
     }
 
     public function delete(Step $step)
     {
-        $step->delete();
-        return to_route('index')->with('success', 'Steps delete successfully!');
+        $user = Step::find($step->id);
+        $user->delete();
+        $image_path = public_path('storage/') . $user->image;
+        if (file_exists($image_path)) {
+            @unlink($image_path);
+        }
+        return to_route('index')->with('success', 'Steps deleted successfully!');
     }
 }
